@@ -43,8 +43,7 @@ def func(indexes):
     print('InProgress, Sections completed will be shown below.Please wait for a while')
     for index,section in indexes.items():
         for title,row in section.items():
-            error=is_url_working(row['link'])
-            if error:
+            if error := is_url_working(row['link']):
                 e={
                     'index':index,
                     'title':title,
@@ -97,7 +96,7 @@ def get_section_wise_dict(lines):   #convert unstructured lines to section wise 
 def link_to_error_file(error_links):    #Enters the bad links to a file which further requires manual check
     lines=[]
     for row in error_links:
-        statement='| {} | [{}]({}) | {} |'.format(row['index'], row['title'], row['link'], str(row['error']))
+        statement = f"| {row['index']} | [{row['title']}]({row['link']}) | {str(row['error'])} |"
         lines.append(statement)
     with open('error.txt','w') as file:
         file.write('\n#Manual check has to be done on following links#\n\n')
